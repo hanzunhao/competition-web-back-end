@@ -7,15 +7,13 @@ import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import java.io.IOException;
 
 @WebFilter(urlPatterns = "/*")
+@Slf4j
 public class LoginCheckFilter implements Filter {
-    private static final Logger log = LoggerFactory.getLogger(LoginCheckFilter.class);
-
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) servletRequest;

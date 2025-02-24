@@ -6,7 +6,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/competition_web
     username: root
-    password: 111111
+    password: "111111"  # 如果密码是纯数字，建议用引号包裹
 
   servlet:
     multipart:
@@ -21,3 +21,17 @@ mybatis:
 logging:
   level:
     org.springframework.jdbc.support.JdbcTransactionManager: debug
+
+springdoc:
+  api-docs:
+    enabled: true  # 开启OpenApi接口
+    path: /v3/api-docs  # 自定义路径，默认为 "/v3/api-docs"
+
+  swagger-ui:
+    enabled: true  # 开启swagger界面，依赖OpenApi，需要OpenApi同时开启
+    path: /swagger-ui/index.html  # 自定义路径，默认为"/swagger-ui/index.html"
+
+deepseek:
+  api-key: sk-7e4abf0a4b224af8909abdf5ca4b427e
+  api-url: https://api.deepseek.com
+

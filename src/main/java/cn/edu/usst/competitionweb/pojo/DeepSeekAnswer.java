@@ -5,10 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class User {
-    private Integer id;
-    private String account;
-    private String password;
+@AllArgsConstructor
+public class DeepSeekAnswer {
+    private String context;
 }
