@@ -4,10 +4,13 @@
 2.克隆仓库：
 git clone https://github.com/hanzunhao/competition-web-back-end.git
 
-3.安装依赖：
+3.移动到项目文件夹 
+cd competition-web-back-end
+
+4.安装依赖：
 mvn clean install
 
-4.运行项目：
+5.运行项目：
 mvn spring-boot:run
 
 # 构建生产环境
