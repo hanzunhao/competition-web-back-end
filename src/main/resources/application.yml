@@ -31,7 +31,10 @@ springdoc:
     enabled: true  # 开启swagger界面，依赖OpenApi，需要OpenApi同时开启
     path: /swagger-ui/index.html  # 自定义路径，默认为"/swagger-ui/index.html"
 
-deepseek:
-  api-key: sk-7e4abf0a4b224af8909abdf5ca4b427e
-  api-url: https://api.deepseek.com
+ai:
+  config:
+    deepseek:
+      apiKey: sk-8f5f75be58e84ab386644021728c36f2
+      baseUrl: https://api.deepseek.com/chat/completions
+
 
