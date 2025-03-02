@@ -10,7 +10,10 @@ cd competition-web-back-end
 4.安装依赖：
 mvn clean install
 
-5.运行项目：
+5.修改数据库配置：
+打开src/main/resources/application.yml文件，将第8、9行的 username 和 password 改为自己MySQL账号的用户名和密码
+
+6.运行项目：
 mvn spring-boot:run
 
 # 构建生产环境
