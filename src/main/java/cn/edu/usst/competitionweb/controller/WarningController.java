@@ -1,5 +1,6 @@
 package cn.edu.usst.competitionweb.controller;
 
+import cn.edu.usst.competitionweb.anno.Log;
 import cn.edu.usst.competitionweb.pojo.Result;
 import cn.edu.usst.competitionweb.pojo.Warning;
 import cn.edu.usst.competitionweb.service.WarningService;
@@ -17,20 +18,21 @@ public class WarningController {
     WarningService warningService;
 
     @GetMapping("/selectAll")
+    @Log
     Result getWarningList() {
         return Result.success(warningService.selectAll());
     }
 
     @DeleteMapping("/delete")
+    @Log
     Result delete(@RequestParam List<Integer> ids) {
-        log.info("delete list:" + ids.toString());
         warningService.delete(ids);
         return Result.success("delete " + ids);
     }
 
     @PostMapping("/insert")
+    @Log
     Result insert(@RequestBody Warning warning) {
-        log.info("insert new warning:" + warning.toString());
         warningService.insert(warning);
         return Result.success("insert " + warning);
     }

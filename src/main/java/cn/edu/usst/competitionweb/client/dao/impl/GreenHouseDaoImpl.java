@@ -1,6 +1,6 @@
-package cn.edu.usst.competitionweb.dao.impl;
+package cn.edu.usst.competitionweb.client.dao.impl;
 
-import cn.edu.usst.competitionweb.dao.GreenHouseDao;
+import cn.edu.usst.competitionweb.client.dao.GreenHouseDao;
 import cn.edu.usst.competitionweb.pojo.GreenHouse;
 import org.springframework.stereotype.Repository;
 

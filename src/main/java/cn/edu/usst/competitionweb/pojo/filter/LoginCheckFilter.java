@@ -1,4 +1,4 @@
-package cn.edu.usst.competitionweb.filter;
+package cn.edu.usst.competitionweb.pojo.filter;
 
 import cn.edu.usst.competitionweb.pojo.Result;
 import cn.edu.usst.competitionweb.utils.JwtUtils;
@@ -29,6 +29,7 @@ public class LoginCheckFilter implements Filter {
         }
         //3.获取请求头中的令牌token
         String jwt = req.getHeader("token");
+        log.info(jwt);
         //4.判断令牌是否存在，如果不存在，返回错误结果（未登录）
         if (!StringUtils.hasLength(jwt)) {
             log.info("请求头token为空，返回未登陆的信息");

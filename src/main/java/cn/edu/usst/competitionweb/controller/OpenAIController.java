@@ -1,5 +1,6 @@
 package cn.edu.usst.competitionweb.controller;
 
+import cn.edu.usst.competitionweb.anno.Log;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -50,6 +51,7 @@ public class OpenAIController {
      * @return SseEmitter 对象，用于流式传输响应
      */
     @PostMapping(value = "/chat", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    @Log
     public SseEmitter chat(@RequestBody String question) {
         // 假设用户 ID 为 "1"，实际应用中可以从 token 中解析出用户 ID
         String userId = "1";
