@@ -1,4 +1,4 @@
-package cn.edu.usst.competitionweb.client.dao;
+package cn.edu.usst.competitionweb.dao;
 
 import cn.edu.usst.competitionweb.pojo.GreenHouse;
 

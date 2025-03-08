@@ -1,6 +1,6 @@
 package cn.edu.usst.competitionweb.service.impl;
 
-import cn.edu.usst.competitionweb.client.dao.GreenHouseDao;
+import cn.edu.usst.competitionweb.dao.GreenHouseDao;
 import cn.edu.usst.competitionweb.pojo.GreenHouse;
 import cn.edu.usst.competitionweb.service.GreenHouseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 public class GreenHouseServiceImpl implements GreenHouseService {
     @Autowired
-    GreenHouseDao greenHouseDao;
+    private GreenHouseDao greenHouseDao;
 
     @Override
     public List<GreenHouse> getAllGreenHouseCardForm() {

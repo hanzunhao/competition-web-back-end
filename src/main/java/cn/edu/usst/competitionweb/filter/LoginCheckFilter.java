@@ -34,7 +34,7 @@ public class LoginCheckFilter implements Filter {
             return;
         }
 
-        String jwt = req.getHeader("token");
+        String jwt = req.getHeader("Token");
         log.info(jwt);
         if (!StringUtils.hasLength(jwt)) {
             log.info("请求头token为空，返回未登陆的信息");
