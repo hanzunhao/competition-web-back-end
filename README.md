@@ -10,7 +10,7 @@ cd competition-web-back-end
 4.安装依赖：
 mvn clean install
 
-5.cmd中设置deepseek API环境变量：
+5.Windows cmd中设置deepseek API环境变量：
 
 setx DEEPSEEK_API_KEY "DEEPSEEK_API_KEY"
 
