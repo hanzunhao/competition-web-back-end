@@ -53,6 +53,8 @@ public class OpenAIController {
     @PostMapping(value = "/chat", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     @Log
     public SseEmitter chat(@RequestBody String question) {
+        System.out.println("Base URL: " + API_URL);
+
         // 假设用户 ID 为 "1"，实际应用中可以从 token 中解析出用户 ID
         String userId = "1";
 
