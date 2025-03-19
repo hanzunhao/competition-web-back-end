@@ -34,7 +34,9 @@ springdoc:
 ai:
   config:
     deepseek:
-      apiKey: sk-8f5f75be58e84ab386644021728c36f2
-      baseUrl: https://api.deepseek.com/chat/completions
+      apiKey: ${DEEPSEEK_API_KEY}  # 从环境变量中读取
+      baseUrl: ${DEEPSEEK_BASE_URL}  # 从环境变量中读取
 
 
+#setx DEEPSEEK_API_KEY "sk-428a82ed111242d2bb413e32349ecee5"
+#setx DEEPSEEK_BASE_URL "https://api.deepseek.com/chat/completions"

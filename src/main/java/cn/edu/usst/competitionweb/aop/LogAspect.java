@@ -19,9 +19,6 @@ import java.util.Arrays;
 @Component
 @Aspect//切面类
 public class LogAspect {
-    @Autowired
-    private HttpServletRequest request;//Interceptor
-
     @Around("@annotation(cn.edu.usst.competitionweb.anno.Log)")
     public Object recordLog(ProceedingJoinPoint joinPoint) throws Throwable {
         long begin = System.currentTimeMillis();
