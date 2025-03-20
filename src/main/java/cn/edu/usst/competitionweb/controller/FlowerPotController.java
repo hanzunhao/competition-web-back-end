@@ -16,7 +16,7 @@ public class FlowerPotController {
 
     @GetMapping
     @Log
-    public Result getAllGreenHouseCardForm(){
+    public Result getAllFlowerPotForm(){
         return Result.success(flowerPotService.getAllFlowerPotForm());
     }
 }
