@@ -11,11 +11,11 @@ import java.util.Random;
 
 @Repository
 public class FlowerPotDaoImpl implements FlowerPotDao {
-    private static final int POT_NUM = 6;
+    private static final int POT_NUM = 18;
 
     @Override
     public List<List<FlowerPot>> getAllFlowerPotForm() {
-        // 存有每个大棚8个花盆（共64个）信息的list
+        // 存有每个大棚16个花盆（共128个）信息的list
         List<List<FlowerPot>> list = new ArrayList<>();
 
         // 定义随机数生成器
