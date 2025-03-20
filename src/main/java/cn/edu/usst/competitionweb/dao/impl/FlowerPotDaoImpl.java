@@ -41,9 +41,9 @@ public class FlowerPotDaoImpl implements FlowerPotDao {
                 // 随机生成各项数据
                 Double soilTemperature = Double.valueOf(df.format(minSoilTemperature + (maxSoilTemperature - minSoilTemperature) * random.nextDouble())); // 土壤温度
                 Double soilHumidity = Double.valueOf(df.format(minSoilHumidity + (maxSoilHumidity - minSoilHumidity) * random.nextDouble())); // 土壤湿度
-
+                Boolean haveFlower = random.nextBoolean();
                 // 创建一个FlowerPot对象
-                FlowerPot flowerPot = new FlowerPot(id, soilTemperature, soilHumidity);
+                FlowerPot flowerPot = new FlowerPot(id, soilTemperature, soilHumidity, haveFlower);
 
                 // 将对象加入列表
                 potList.add(flowerPot);
