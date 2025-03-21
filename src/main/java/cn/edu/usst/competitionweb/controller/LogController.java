@@ -11,7 +11,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("/page_2/warning")
+@RequestMapping("/page_2/log")
 public class LogController {
     @Autowired
     LogService logService;
