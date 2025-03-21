@@ -9,9 +9,9 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Warning {
+public class Log {
     private Integer id;
     private LocalDateTime date;
     private String name;
-    private String reason;
+    private Boolean isCompleted;
 }
