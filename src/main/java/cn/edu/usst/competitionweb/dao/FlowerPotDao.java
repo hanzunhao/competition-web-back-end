@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface FlowerPotDao {
     List<List<FlowerPot>> getAllFlowerPotForm();
+    void deleteFlowerPotByIdList(List<Integer> ids);
 }

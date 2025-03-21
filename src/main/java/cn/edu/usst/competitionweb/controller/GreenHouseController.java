@@ -1,6 +1,6 @@
 package cn.edu.usst.competitionweb.controller;
 
-import cn.edu.usst.competitionweb.anno.Log;
+import cn.edu.usst.competitionweb.anno.PrintOperateLog;
 import cn.edu.usst.competitionweb.pojo.Result;
 import cn.edu.usst.competitionweb.service.GreenHouseService;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +17,7 @@ public class GreenHouseController {
     GreenHouseService greenHouseService;
 
     @GetMapping()
-    @Log
+    @PrintOperateLog
     Result getAllGreenHouseCardForm() {
         return Result.success(greenHouseService.getAllGreenHouseCardForm());
     }

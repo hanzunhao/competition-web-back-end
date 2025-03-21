@@ -1,15 +1,11 @@
 package cn.edu.usst.competitionweb.aop;
 
 import cn.edu.usst.competitionweb.pojo.OperateLog;
-import cn.edu.usst.competitionweb.utils.JwtUtils;
 import com.alibaba.fastjson2.JSONObject;
-import io.jsonwebtoken.Claims;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -19,7 +15,7 @@ import java.util.Arrays;
 @Component
 @Aspect//切面类
 public class LogAspect {
-    @Around("@annotation(cn.edu.usst.competitionweb.anno.Log)")
+    @Around("@annotation(cn.edu.usst.competitionweb.anno.PrintOperateLog)")
     public Object recordLog(ProceedingJoinPoint joinPoint) throws Throwable {
         long begin = System.currentTimeMillis();
         //操作时间

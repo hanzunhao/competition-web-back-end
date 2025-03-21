@@ -1,5 +1,6 @@
 package cn.edu.usst.competitionweb.controller;
 
+import cn.edu.usst.competitionweb.anno.PrintOperateLog;
 import cn.edu.usst.competitionweb.pojo.Result;
 import cn.edu.usst.competitionweb.pojo.Log;
 import cn.edu.usst.competitionweb.service.LogService;
@@ -17,20 +18,20 @@ public class LogController {
     LogService logService;
 
     @GetMapping("/selectAll")
-    @cn.edu.usst.competitionweb.anno.Log
+    @PrintOperateLog
     Result getWarningList() {
         return Result.success(logService.selectAll());
     }
 
     @DeleteMapping("/delete")
-    @cn.edu.usst.competitionweb.anno.Log
+    @PrintOperateLog
     Result delete(@RequestParam List<Integer> ids) {
         logService.delete(ids);
         return Result.success("delete " + ids);
     }
 
     @PostMapping("/insert")
-    @cn.edu.usst.competitionweb.anno.Log
+    @PrintOperateLog
     Result insert(@RequestBody Log log) {
         logService.insert(log);
         return Result.success("insert " + log);

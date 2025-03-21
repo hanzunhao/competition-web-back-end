@@ -17,4 +17,9 @@ public class FlowerPotServiceImpl implements FlowerPotService {
     public List<List<FlowerPot>> getAllFlowerPotForm() {
         return flowerPotDao.getAllFlowerPotForm();
     }
+
+    @Override
+    public void deleteFlowerPotByIdList(List<Integer> ids) {
+        flowerPotDao.deleteFlowerPotByIdList(ids);
+    }
 }
