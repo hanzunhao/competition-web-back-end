@@ -6,5 +6,5 @@ import java.util.List;
 
 
 public interface GreenHouseService {
-    List<GreenHouse> getAllGreenHouseCardForm();
+    List<GreenHouse> getAllGreenHouseForm();
 }

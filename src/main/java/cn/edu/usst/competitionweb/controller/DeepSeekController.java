@@ -3,6 +3,9 @@ package cn.edu.usst.competitionweb.controller;
 import cn.edu.usst.competitionweb.anno.PrintOperateLog;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
@@ -24,8 +27,9 @@ import java.util.concurrent.Executors;
 
 @RestController
 @RequestMapping("/page_3")
+@Tag(name = "DeepSeek 接口", description = "DeepSeek 相关接口")  // 描述该Controller的功能
 @Slf4j
-public class OpenAIController {
+public class DeepSeekController {
 
     // 从配置文件中注入 Deepseek API 的密钥
     @Value("${ai.config.deepseek.apiKey}")
@@ -51,8 +55,10 @@ public class OpenAIController {
      * @return SseEmitter 对象，用于流式传输响应
      */
     @PostMapping(value = "/chat", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    @Operation(summary = "与 AI 对话", description = "接收用户的问题并返回流式响应")
     @PrintOperateLog
-    public SseEmitter chat(@RequestBody String question) {
+    public SseEmitter chat(
+            @Parameter(description = "用户的问题", required = true) @RequestBody String question) {
         System.out.println("Base URL: " + API_URL);
 
         // 假设用户 ID 为 "1"，实际应用中可以从 token 中解析出用户 ID

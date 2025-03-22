@@ -34,7 +34,7 @@ public class VideoStreamHandler extends BinaryWebSocketHandler {
 
     private void startVideoStream(WebSocketSession session) {
         synchronized (CAMERA_LOCK) {
-            try (FrameGrabber grabber = new OpenCVFrameGrabber(0);
+            try (FrameGrabber grabber = new OpenCVFrameGrabber(1);
                  ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
                 grabber.start();
 
