@@ -28,12 +28,14 @@ public class FlowerPotController {
         return Result.success(flowerPotService.getAllFlowerPotForm());
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/delete/{greenHouseId}")
     @Operation(summary = "批量删除花盆", description = "根据传入的花盆ID列表批量删除花盆")
     @PrintOperateLog
     public Result deleteFlowerPotByIdList(
-            @Parameter(description = "花盆ID列表", required = true) @RequestBody List<Integer> ids) {
-        flowerPotService.deleteFlowerPotByIdList(ids);
-        return Result.success("delete " + ids);
+            @Parameter(description = "温室ID", required = true) @PathVariable Integer greenHouseId,
+            @Parameter(description = "花盆ID列表", required = true) @RequestBody List<Integer> potIdList
+    ) {
+        flowerPotService.deleteFlowerPotByIdList(greenHouseId, potIdList);
+        return Result.success("删除成功: greenhouseId=" + greenHouseId + ", potIdList=" + potIdList);
     }
 }

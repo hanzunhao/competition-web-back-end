@@ -15,14 +15,12 @@ public class FlowerPotDaoImpl implements FlowerPotDao {
     }
 
     @Override
-    public void deleteFlowerPotByIdList(List<Integer> ids) {
+    public void deleteFlowerPotByIdList(Integer greenHouseId, List<Integer> potIdList) {
         List<List<FlowerPot>> data = FlowerPotDataUtils.getFlowerPotData();
 
-        for (List<FlowerPot> potList : data) {
-            for (FlowerPot flowerPot : potList) {
-                if (ids.contains(flowerPot.getId())) {
-                    flowerPot.setHaveFlower(false);
-                }
+        for (FlowerPot flowerPot : data.get(greenHouseId)) {
+            if (potIdList.contains(flowerPot.getId())) {
+                flowerPot.setHaveFlower(false);
             }
         }
     }

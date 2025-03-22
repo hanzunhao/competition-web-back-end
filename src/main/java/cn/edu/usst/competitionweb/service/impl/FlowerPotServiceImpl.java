@@ -19,7 +19,7 @@ public class FlowerPotServiceImpl implements FlowerPotService {
     }
 
     @Override
-    public void deleteFlowerPotByIdList(List<Integer> ids) {
-        flowerPotDao.deleteFlowerPotByIdList(ids);
+    public void deleteFlowerPotByIdList(Integer greenHouseId,List<Integer> potIdList) {
+        flowerPotDao.deleteFlowerPotByIdList(greenHouseId,potIdList);
     }
 }
