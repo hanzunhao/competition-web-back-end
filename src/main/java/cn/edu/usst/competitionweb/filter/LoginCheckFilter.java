@@ -30,7 +30,7 @@ public class LoginCheckFilter implements Filter {
         // 其他 HTTP 请求的逻辑
         String url = req.getRequestURL().toString();
         log.info("请求的url：{}", url);
-        if (url.contains("login")) {
+        if (url.contains("login")|| url.contains("test") || url.contains("swagger-ui") || url.contains("api-docs")) {
             filterChain.doFilter(servletRequest, servletResponse);
             return;
         }

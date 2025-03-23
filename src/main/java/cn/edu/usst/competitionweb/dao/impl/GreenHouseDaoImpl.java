@@ -19,7 +19,6 @@ public class GreenHouseDaoImpl implements GreenHouseDao {
     }
 }
 
-// TODO 卡片显示剩余数量
 // TODO 增加删除温室
 // TODO 插入新任务打断日常任务
 // TODO 价格表格下加上仓库显示和计算价格

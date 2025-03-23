@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication
 @EnableTransactionManagement
-//@ServletComponentScan  // 确保自动扫描过滤器
+@ServletComponentScan  // 确保自动扫描过滤器
 public class CompetitionWebApplication {
     public static void main(String[] args) {
         SpringApplication.run(CompetitionWebApplication.class, args);
