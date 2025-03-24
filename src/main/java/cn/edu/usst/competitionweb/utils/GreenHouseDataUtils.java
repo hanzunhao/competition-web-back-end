@@ -45,7 +45,7 @@ public class GreenHouseDataUtils {
     private static List<GreenHouse> list;
 
     static {
-        generateGreenHouseDataList(GREEN_HOUSE_NUM);
+        generateGreenHouseDataList();
     }
 
     // 生成单个大棚数据
@@ -74,14 +74,29 @@ public class GreenHouseDataUtils {
     }
 
     // 生成多个大棚数据
-    private static void generateGreenHouseDataList(int count) {
+    private static void generateGreenHouseDataList() {
         list = new ArrayList<>();
-        for (int i = 0; i < count; i++) {
+        for (int i = 0; i < GreenHouseDataUtils.GREEN_HOUSE_NUM; i++) {
             list.add(generateGreenHouseData(i + 1));
         }
     }
 
-    public static List<GreenHouse> getList(){
+    public static List<GreenHouse> getList() {
         return list;
+    }
+
+    public static void updateList(List<GreenHouse> greenHouseList) {
+        // 遍历传入的 greenHouseList
+        for (GreenHouse newGreenHouse : greenHouseList) {
+            // 遍历当前的 list
+            for (int i = 0; i < list.size(); i++) {
+                GreenHouse oldGreenHouse = list.get(i);
+                // 如果 id 相同，则替换旧的 GreenHouse 对象
+                if (oldGreenHouse.getId().equals(newGreenHouse.getId())) {
+                    list.set(i, newGreenHouse);
+                    break;
+                }
+            }
+        }
     }
 }

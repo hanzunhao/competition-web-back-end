@@ -17,6 +17,11 @@ public class GreenHouseDaoImpl implements GreenHouseDao {
     public List<GreenHouse> getAllGreenHouseForm() {
         return GreenHouseDataUtils.getList();
     }
+
+    @Override
+    public void updateGreenHouseForm(List<GreenHouse> greenHouseList) {
+        GreenHouseDataUtils.updateList(greenHouseList);
+    }
 }
 
 // TODO 增加删除温室

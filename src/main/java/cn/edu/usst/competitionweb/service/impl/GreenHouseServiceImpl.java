@@ -17,4 +17,9 @@ public class GreenHouseServiceImpl implements GreenHouseService {
     public List<GreenHouse> getAllGreenHouseForm() {
         return greenHouseDao.getAllGreenHouseForm();
     }
+
+    @Override
+    public void updateGreenHouseForm(List<GreenHouse> greenHouseList) {
+        greenHouseDao.updateGreenHouseForm(greenHouseList);
+    }
 }

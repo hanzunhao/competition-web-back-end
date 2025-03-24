@@ -36,7 +36,7 @@ public class TestController {
     public Result putTest(@RequestBody TestPojo testPojo) {
         try {
             log.info("接收到 PUT 请求，testPojo: " + testPojo);
-            return Result.success("PUT 请求处理成功！");
+            return Result.success();
         } catch (Exception e) {
             log.error("处理 PUT 请求时发生错误：", e);
             return Result.error("PUT 请求处理失败！");
@@ -47,7 +47,7 @@ public class TestController {
     public Result deleteTest() {
         try {
             log.info("接收到 DELETE 请求");
-            return Result.success("DELETE 请求处理成功！");
+            return Result.success();
         } catch (Exception e) {
             log.error("处理 DELETE 请求时发生错误：", e);
             return Result.error("DELETE 请求处理失败！");

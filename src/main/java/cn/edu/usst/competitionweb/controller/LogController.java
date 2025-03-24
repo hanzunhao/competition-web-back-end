@@ -35,7 +35,7 @@ public class LogController {
     public Result delete(
             @Parameter(description = "日志ID列表", required = true) @RequestParam List<Integer> ids) {
         logService.delete(ids);
-        return Result.success("delete " + ids);
+        return Result.success();
     }
 
     @PostMapping("/insert")
@@ -44,6 +44,6 @@ public class LogController {
     public Result insert(
             @Parameter(description = "日志对象", required = true) @RequestBody Log log) {
         logService.insert(log);
-        return Result.success("insert " + log);
+        return Result.success();
     }
 }

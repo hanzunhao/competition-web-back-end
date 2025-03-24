@@ -25,7 +25,11 @@ public class FlowerPotController {
     @Operation(summary = "获取所有花盆信息", description = "返回所有花盆的详细信息")
     @PrintOperateLog
     public Result getAllFlowerPotForm() {
-        return Result.success(flowerPotService.getAllFlowerPotForm());
+        try {
+            return Result.success(flowerPotService.getAllFlowerPotForm());
+        } catch (Exception e) {
+            return Result.error(e.getMessage());
+        }
     }
 
     @DeleteMapping("/delete/{greenHouseId}")
@@ -35,7 +39,11 @@ public class FlowerPotController {
             @Parameter(description = "温室ID", required = true) @PathVariable Integer greenHouseId,
             @Parameter(description = "花盆ID列表", required = true) @RequestBody List<Integer> potIdList
     ) {
-        flowerPotService.deleteFlowerPotByIdList(greenHouseId, potIdList);
-        return Result.success("删除成功: greenhouseId=" + greenHouseId + ", potIdList=" + potIdList);
+        try {
+            flowerPotService.deleteFlowerPotByIdList(greenHouseId, potIdList);
+            return Result.success();
+        } catch (Exception e) {
+            return Result.error(e.getMessage());
+        }
     }
 }

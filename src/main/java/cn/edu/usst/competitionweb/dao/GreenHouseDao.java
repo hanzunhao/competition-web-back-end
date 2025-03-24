@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface GreenHouseDao {
     List<GreenHouse> getAllGreenHouseForm();
+    void updateGreenHouseForm(List<GreenHouse> greenHouseList);
 }

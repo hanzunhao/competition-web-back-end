@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface GreenHouseService {
     List<GreenHouse> getAllGreenHouseForm();
+    void updateGreenHouseForm(List<GreenHouse> greenHouseList);
 }
