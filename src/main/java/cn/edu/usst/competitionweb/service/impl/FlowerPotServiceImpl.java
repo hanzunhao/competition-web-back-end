@@ -22,4 +22,9 @@ public class FlowerPotServiceImpl implements FlowerPotService {
     public void deleteFlowerPotByIdList(Integer greenHouseId,List<Integer> potIdList) {
         flowerPotDao.deleteFlowerPotByIdList(greenHouseId,potIdList);
     }
+
+    @Override
+    public void updateFlowerPotForm(List<List<FlowerPot>> flowerPotData) {
+        flowerPotDao.updateFlowerPotForm(flowerPotData);
+    }
 }

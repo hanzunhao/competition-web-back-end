@@ -1,6 +1,7 @@
 package cn.edu.usst.competitionweb.utils;
 
 import cn.edu.usst.competitionweb.pojo.FlowerPot;
+import cn.edu.usst.competitionweb.pojo.GreenHouse;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -43,10 +44,32 @@ public class FlowerPotDataUtils {
             flowerPotData.add(potList);
         }
     }
+
     public static List<List<FlowerPot>> getFlowerPotData() {
         return flowerPotData;
     }
 
-//    public static  void updategetFlowerPotData(){}
+    public static void updateFlowerPotData(List<List<FlowerPot>> newFlowerPotData) {
+        if (newFlowerPotData != null && newFlowerPotData.size() == GREEN_HOUSE_NUM) {
+            for (List<FlowerPot> newFlowerPotDatum : newFlowerPotData) {
+                if (newFlowerPotDatum.size() != POT_NUM) {
+                    throw new IllegalArgumentException("每个温室的花盆数量必须为 " + POT_NUM);
+                }
+            }
+            for (int i = 0; i < flowerPotData.size() && i < newFlowerPotData.size(); i++) {
+                List<FlowerPot> flowerPotList = flowerPotData.get(i);
+                List<FlowerPot> newFlowerPotList = newFlowerPotData.get(i);
 
+                for (int j = 0; j < flowerPotList.size() && j < newFlowerPotList.size(); j++) {
+                    FlowerPot flowerPot = flowerPotList.get(j);
+                    FlowerPot newFlowerPot = newFlowerPotList.get(j);
+
+                    newFlowerPot.setHaveFlower(flowerPot.getHaveFlower());
+                }
+            }
+            flowerPotData = newFlowerPotData;
+        } else {
+            throw new IllegalArgumentException("温室数量必须为 " + GREEN_HOUSE_NUM);
+        }
+    }
 }

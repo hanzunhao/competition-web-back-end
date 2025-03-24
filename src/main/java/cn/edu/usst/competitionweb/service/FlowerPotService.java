@@ -6,4 +6,9 @@ import java.util.List;
 
 public interface FlowerPotService {
     List<List<FlowerPot>> getAllFlowerPotForm();
-    void deleteFlowerPotByIdList(Integer greenHouseId,List<Integer> potIdList);}
+
+    void deleteFlowerPotByIdList(Integer greenHouseId, List<Integer> potIdList);
+
+    void updateFlowerPotForm(List<List<FlowerPot>> flowerPotData);
+}
+

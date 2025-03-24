@@ -24,4 +24,9 @@ public class FlowerPotDaoImpl implements FlowerPotDao {
             }
         }
     }
+
+    @Override
+    public void updateFlowerPotForm(List<List<FlowerPot>> flowerPotData) {
+        FlowerPotDataUtils.updateFlowerPotData(flowerPotData);
+    }
 }
