@@ -5,10 +5,10 @@ import cn.edu.usst.competitionweb.pojo.FlowerPot;
 import java.util.List;
 
 public interface FlowerPotService {
-    List<List<FlowerPot>> getAllFlowerPotForm();
+    List<FlowerPot> getFlowerPotByGreenHouseId(Integer greenHouseId);
 
-    void deleteFlowerPotByIdList(Integer greenHouseId, List<Integer> potIdList);
+    void deleteFlowerPotByPotIdList(Integer greenHouseId, List<Integer> potIdList);
 
-    void updateFlowerPotForm(List<List<FlowerPot>> flowerPotData);
+    void updateFlowerPotByGreenHouseId(Integer greenHouseId,List<FlowerPot> flowerPotList);
 }
 

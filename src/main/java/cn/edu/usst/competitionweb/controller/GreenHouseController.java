@@ -1,6 +1,5 @@
 package cn.edu.usst.competitionweb.controller;
 
-import cn.edu.usst.competitionweb.anno.PrintOperateLog;
 import cn.edu.usst.competitionweb.pojo.GreenHouse;
 import cn.edu.usst.competitionweb.pojo.Result;
 import cn.edu.usst.competitionweb.service.GreenHouseService;
@@ -11,38 +10,46 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
-@RequestMapping("/home")
-@Tag(name = "温室管理接口", description = "温室管理相关接口")  // 描述该Controller的功能
+@RequestMapping
 @Slf4j
+@Tag(name = "温室管理", description = "温室信息管理相关接口")
 public class GreenHouseController {
 
     @Autowired
     private GreenHouseService greenHouseService;
 
-    @GetMapping("/get")
-    @Operation(summary = "获取所有温室信息", description = "返回所有温室的信息")
-    @PrintOperateLog
-    public Result getAllGreenHouseForm() {
-        try{
-            return Result.success(greenHouseService.getAllGreenHouseForm());
-        }catch (Exception e){
+    @GetMapping("/home")
+    @Operation(summary = "获取所有温室信息", description = "返回系统中所有的温室数据列表")
+    public Result getAllGreenHouse() {
+        try {
+            return Result.success(greenHouseService.getAllGreenHouse());
+        } catch (Exception e) {
             return Result.error(e.getMessage());
         }
     }
 
-    @PutMapping("/update")
-    @Operation(summary = "更新温室信息", description = "上位机发送最新的温室信息到此接口")
-    @PrintOperateLog
-    public Result updateGreenHouseForm(
-            @Parameter(description = "温室对象列表", required = true) @RequestBody List<GreenHouse> greenHouseList
-    ) {
-        try{
-            greenHouseService.updateGreenHouseForm(greenHouseList);
+    @GetMapping("/home/{id}")
+    @Operation(summary = "根据ID获取温室信息", description = "根据温室ID获取对应的温室详细信息")
+    public Result getGreenHouseById(
+            @Parameter(description = "温室ID", required = true)
+            @PathVariable int id) {
+        try {
+            return Result.success(greenHouseService.getGreenHouseById(id));
+        } catch (Exception e) {
+            return Result.error(e.getMessage());
+        }
+    }
+
+    @PutMapping("/update/greenhouse")
+    @Operation(summary = "更新温室信息", description = "根据提供的温室信息更新系统中的温室数据")
+    public Result updateGreenHouse(
+            @Parameter(description = "温室信息对象", required = true)
+            @RequestBody GreenHouse greenHouse) {
+        try {
+            greenHouseService.updateGreenHouse(greenHouse);
             return Result.success();
-        } catch (Exception e){
+        } catch (Exception e) {
             return Result.error(e.getMessage());
         }
     }

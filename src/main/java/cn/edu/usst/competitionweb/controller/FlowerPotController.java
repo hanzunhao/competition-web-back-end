@@ -1,6 +1,5 @@
 package cn.edu.usst.competitionweb.controller;
 
-import cn.edu.usst.competitionweb.anno.PrintOperateLog;
 import cn.edu.usst.competitionweb.pojo.FlowerPot;
 import cn.edu.usst.competitionweb.pojo.Result;
 import cn.edu.usst.competitionweb.service.FlowerPotService;
@@ -14,48 +13,52 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/home/detail/pot")
-@Tag(name = "花盆管理接口", description = "花盆管理相关接口")  // 描述该Controller的功能
+@RequestMapping
 @Slf4j
+@Tag(name = "花盆管理接口", description = "花盆管理相关操作")
 public class FlowerPotController {
 
     @Autowired
     private FlowerPotService flowerPotService;
 
-    @GetMapping("/selectAll")
-    @Operation(summary = "获取所有花盆信息", description = "返回所有花盆的详细信息")
-    @PrintOperateLog
-    public Result getAllFlowerPotForm() {
+    @Operation(summary = "根据温室ID获取花盆", description = "获取指定温室中的所有花盆信息")
+    @GetMapping("/home/{greenHouseId}/pot")
+    public Result getFlowerPotByGreenHouseId(
+            @Parameter(description = "温室ID", required = true)
+            @PathVariable Integer greenHouseId) {
         try {
-            return Result.success(flowerPotService.getAllFlowerPotForm());
+            return Result.success(flowerPotService.getFlowerPotByGreenHouseId(greenHouseId));
         } catch (Exception e) {
             return Result.error(e.getMessage());
         }
     }
 
-    @DeleteMapping("/delete/{greenHouseId}")
-    @Operation(summary = "批量删除花盆", description = "根据传入的花盆ID列表批量删除花盆")
-    @PrintOperateLog
-    public Result deleteFlowerPotByIdList(
-            @Parameter(description = "温室ID", required = true) @PathVariable Integer greenHouseId,
-            @Parameter(description = "花盆ID列表", required = true) @RequestBody List<Integer> potIdList
-    ) {
+    @Operation(summary = "删除花盆", description = "根据花盆ID列表从指定温室中删除多个花盆")
+    @DeleteMapping("/home/{greenHouseId}/pot")
+    public Result deleteFlowerPotByPotIdList(
+            @Parameter(description = "温室ID", required = true)
+            @PathVariable Integer greenHouseId,
+            @Parameter(description = "花盆ID列表", required = true)
+            @RequestBody List<Integer> potIdList) {
         try {
-            flowerPotService.deleteFlowerPotByIdList(greenHouseId, potIdList);
+            flowerPotService.deleteFlowerPotByPotIdList(greenHouseId, potIdList);
             return Result.success();
         } catch (Exception e) {
             return Result.error(e.getMessage());
         }
     }
 
-    @PutMapping("/update")
-    @Operation(summary = "更新花盆数据",description = "上位机发送最新的温室信息到此接口")
-    @PrintOperateLog
-    public Result updateFlowerPotForm(@Parameter(description = "包含每个温室的若干个花盆对象的双重列表",required = true) @RequestBody List<List<FlowerPot>> flowerPotData){
-        try{
-            flowerPotService.updateFlowerPotForm(flowerPotData);
+    @Operation(summary = "更新花盆信息", description = "更新指定温室中的花盆信息列表")
+    @PutMapping("/home/{greenHouseId}/update")
+    public Result updateFlowerPotByGreenHouseId(
+            @Parameter(description = "温室ID", required = true)
+            @PathVariable Integer greenHouseId,
+            @Parameter(description = "花盆信息对象列表", required = true)
+            @RequestBody List<FlowerPot> flowerPotList) {
+        try {
+            flowerPotService.updateFlowerPotByGreenHouseId(greenHouseId, flowerPotList);
             return Result.success();
-        }catch (Exception e){
+        } catch (Exception e) {
             return Result.error(e.getMessage());
         }
     }

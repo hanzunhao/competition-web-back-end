@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.usst.competitionweb.mapper.GreenHouseMapper">
+
+    <!-- 基础温室信息结果映射 -->
+    <resultMap id="GreenHouseBaseResultMap" type="cn.edu.usst.competitionweb.pojo.GreenHouse">
+        <id property="greenHouseId" column="green_house_id"/>
+        <result property="flowerName" column="flower_name"/>
+        <result property="illumination" column="illumination"/>
+        <result property="airTemperature" column="air_temperature"/>
+        <result property="meanSoilTemperature" column="mean_soil_temperature"/>
+        <result property="airHumidity" column="air_humidity"/>
+        <result property="meanSoilHumidity" column="mean_soil_humidity"/>
+        <result property="storeId" column="store_id"/>
+        <result property="totalPots" column="total_pots"/>
+        <result property="potsWithFlowers" column="pots_with_flowers"/>
+    </resultMap>
+
+    <!-- 完整温室信息结果映射（包含害虫列表） -->
+    <resultMap id="GreenHouseResultMap" extends="GreenHouseBaseResultMap"
+               type="cn.edu.usst.competitionweb.pojo.GreenHouse">
+        <collection property="pestNames" ofType="string" javaType="java.util.ArrayList"
+                    select="getPestsByGreenHouseId" column="green_house_id"/>
+    </resultMap>
+
+    <!-- 根据ID获取单个温室信息 -->
+    <select id="getGreenHouseById" resultMap="GreenHouseResultMap">
+        SELECT
+            green_house_id,
+            flower_name,
+            illumination,
+            air_temperature,
+            mean_soil_temperature,
+            air_humidity,
+            mean_soil_humidity,
+            store_id,
+            total_pots,
+            pots_with_flowers
+        FROM
+            GreenhouseStatusView
+        WHERE
+            green_house_id = #{id}
+    </select>
+
+    <!-- 获取所有温室基本信息 -->
+    <select id="getAllGreenHouse" resultMap="GreenHouseBaseResultMap">
+        SELECT
+            green_house_id,
+            flower_name,
+            illumination,
+            air_temperature,
+            mean_soil_temperature,
+            air_humidity,
+            mean_soil_humidity,
+            store_id,
+            total_pots,
+            pots_with_flowers
+        FROM
+            GreenhouseStatusView
+        ORDER BY
+            green_house_id
+    </select>
+
+    <!-- 获取温室的害虫列表 -->
+    <select id="getPestsByGreenHouseId" resultType="string">
+        SELECT
+            pest_name
+        FROM
+            (SELECT
+                 green_house_id,
+                 SUBSTRING_INDEX(SUBSTRING_INDEX(pest_names, ',', numbers.n), ',', -1) AS pest_name
+             FROM
+                 GreenhousePestView
+                     JOIN
+                 (SELECT 1 n UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL
+                  SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL
+                  SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9 UNION ALL SELECT 10) numbers
+                 ON CHAR_LENGTH(pest_names) - CHAR_LENGTH(REPLACE(pest_names, ',', '')) >= numbers.n - 1
+             WHERE green_house_id = #{green_house_id}) pest_list
+        WHERE pest_name IS NOT NULL AND pest_name != ''
+    </select>
+
+    <!-- 更新温室信息 -->
+    <update id="updateGreenHouse" parameterType="cn.edu.usst.competitionweb.pojo.GreenHouse">
+        UPDATE GreenHouse
+        <set>
+            <if test="flowerName != null">
+                flower_type_id = (SELECT id FROM FlowerType WHERE flower_name = #{flowerName}),
+            </if>
+            <if test="illumination != null">
+                illumination = #{illumination},
+            </if>
+            <if test="airTemperature != null">
+                air_temperature = #{airTemperature},
+            </if>
+            <if test="airHumidity != null">
+                air_humidity = #{airHumidity},
+            </if>
+            <if test="meanSoilTemperature != null">
+                mean_soil_temperature = #{meanSoilTemperature},
+            </if>
+            <if test="meanSoilHumidity != null">
+                mean_soil_humidity = #{meanSoilHumidity},
+            </if>
+            <if test="storeId != null">
+                store_id = #{storeId},
+            </if>
+        </set>
+        WHERE id = #{greenHouseId}
+    </update>
+</mapper>

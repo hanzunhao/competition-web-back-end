@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class FlowerPot {
     private Integer id;
-    private Double soilTemperature;     // 土壤温度
-    private Double soilHumidity;        // 土壤湿度
-    private Boolean haveFlower;         // 是否有花
+    private Double soilTemperature;
+    private Double soilHumidity;
+    private Boolean haveFlower;
+    private String pestName;
 }

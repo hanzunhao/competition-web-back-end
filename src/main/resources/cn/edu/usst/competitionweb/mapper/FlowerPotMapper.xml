@@ -1,0 +1,54 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.usst.competitionweb.mapper.FlowerPotMapper">
+
+    <select id="getFlowerPotByGreenHouseId" resultType="cn.edu.usst.competitionweb.pojo.FlowerPot">
+        SELECT fp.id,
+               fp.soil_temperature as soilTemperature,
+               fp.soil_humidity    as soilHumidity,
+               fp.have_flower      as haveFlower,
+               p.name              as pestName
+        FROM FlowerPot fp
+                 LEFT JOIN
+             FlowerPotPest fpp ON fp.id = fpp.flower_pot_id
+                 LEFT JOIN
+             Pest p ON fpp.pest_id = p.id
+        WHERE fp.green_house_id = #{greenHouseId}
+        ORDER BY fp.id
+    </select>
+
+    <!-- 先删除关联的害虫记录 -->
+    <delete id="deletePestsByPotIds">
+        DELETE FROM FlowerPotPest
+        WHERE flower_pot_id IN
+        <foreach item="potId" collection="list" open="(" separator="," close=")">
+            #{potId}
+        </foreach>
+    </delete>
+
+    <!-- 再删除花盆记录 -->
+    <delete id="deleteFlowerPotByPotIdList">
+        DELETE FROM FlowerPot
+        WHERE green_house_id = #{greenHouseId}
+        AND id IN
+        <foreach item="potId" collection="potIdList" open="(" separator="," close=")">
+            #{potId}
+        </foreach>
+    </delete>
+
+    <update id="updateFlowerPotByGreenHouseId">
+        <foreach collection="flowerPotList" item="pot" separator=";">
+            UPDATE
+            FlowerPot
+            SET
+            soil_temperature = #{pot.soilTemperature},
+            soil_humidity = #{pot.soilHumidity},
+            have_flower = #{pot.haveFlower},
+            flower_type_id = #{pot.flowerTypeId}
+            WHERE
+            id = #{pot.id}
+            AND green_house_id = #{greenHouseId}
+        </foreach>
+    </update>
+</mapper>

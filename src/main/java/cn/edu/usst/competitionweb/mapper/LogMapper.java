@@ -9,11 +9,11 @@ import java.util.List;
 
 @Mapper
 public interface LogMapper {
-    @Select("SELECT id, date, name, isCompleted FROM competition_web.logs")
+    @Select("SELECT id, date, name, is_completed FROM log")
     List<Log> selectAll();
 
     void delete(List<Integer> ids);
 
-    @Insert("INSERT INTO competition_web.logs (date, name, isCompleted) VALUES (#{date}, #{name}, #{isCompleted})")
+    @Insert("INSERT INTO competition_web.log (date, name, is_completed) VALUES (#{date}, #{name}, #{isCompleted})")
     void insert(Log log);
 }

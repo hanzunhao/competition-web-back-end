@@ -6,6 +6,7 @@ import java.util.List;
 
 
 public interface GreenHouseService {
-    List<GreenHouse> getAllGreenHouseForm();
-    void updateGreenHouseForm(List<GreenHouse> greenHouseList);
+    List<GreenHouse> getAllGreenHouse();
+    void updateGreenHouse(GreenHouse greenHouse);
+    GreenHouse getGreenHouseById(Integer id);
 }

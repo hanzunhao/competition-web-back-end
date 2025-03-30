@@ -1,6 +1,5 @@
 package cn.edu.usst.competitionweb.controller;
 
-import cn.edu.usst.competitionweb.anno.PrintOperateLog;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.v3.oas.annotations.Operation;
@@ -54,11 +53,10 @@ public class DeepSeekController {
      * @param question 用户的问题
      * @return SseEmitter 对象，用于流式传输响应
      */
-    @PostMapping(value = "/chat", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    @GetMapping(value = "/chat", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     @Operation(summary = "与 AI 对话", description = "接收用户的问题并返回流式响应")
-    @PrintOperateLog
     public SseEmitter chat(
-            @Parameter(description = "用户的问题", required = true) @RequestBody String question) {
+            @Parameter(description = "用户的问题", required = true) @RequestParam String question) {
         System.out.println("Base URL: " + API_URL);
 
         // 假设用户 ID 为 "1"，实际应用中可以从 token 中解析出用户 ID

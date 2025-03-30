@@ -1,56 +1,37 @@
 package cn.edu.usst.competitionweb.controller;
 
-import cn.edu.usst.competitionweb.pojo.Result;
-import cn.edu.usst.competitionweb.pojo.TestPojo;
+import cn.edu.usst.competitionweb.service.impl.WsServiceImpl;
+import cn.edu.usst.competitionweb.utils.WsSessionManager;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.io.IOException;
+import java.util.Map;
 
 @RestController
 @Slf4j
-@RequestMapping("/test")
 public class TestController {
+    @Autowired
+    WsServiceImpl wsService;
 
-    @GetMapping
-    public Result getTest() {
-        try {
-            log.info("接收到 GET 请求");
-            return Result.success("GET 请求处理成功！");
-        } catch (Exception e) {
-            log.error("处理 GET 请求时发生错误：", e);
-            return Result.error("GET 请求处理失败！");
-        }
+    @PostMapping("/send")
+    public Boolean testSend(@RequestBody Map<String, String> request) throws IOException {
+        log.info("send");
+        String sessionType=request.get("session-type");
+        String message=request.get("message");
+        wsService.send(sessionType,message);
+        log.info("SESSION POLL: " + WsSessionManager.SESSION_POOL);
+        return true;
     }
 
-    @PostMapping
-    public Result postTest(@RequestBody TestPojo testPojo) {
-        try {
-            log.info("接收到 POST 请求，testPojo: " + testPojo);
-            return Result.success("POST 请求处理成功！");
-        } catch (Exception e) {
-            log.error("处理 POST 请求时发生错误：", e);
-            return Result.error("POST 请求处理失败！");
-        }
-    }
-
-    @PutMapping
-    public Result putTest(@RequestBody TestPojo testPojo) {
-        try {
-            log.info("接收到 PUT 请求，testPojo: " + testPojo);
-            return Result.success();
-        } catch (Exception e) {
-            log.error("处理 PUT 请求时发生错误：", e);
-            return Result.error("PUT 请求处理失败！");
-        }
-    }
-
-    @DeleteMapping
-    public Result deleteTest() {
-        try {
-            log.info("接收到 DELETE 请求");
-            return Result.success();
-        } catch (Exception e) {
-            log.error("处理 DELETE 请求时发生错误：", e);
-            return Result.error("DELETE 请求处理失败！");
-        }
+    @PostMapping("/broadcast")
+    public Boolean testBroadcast(@RequestBody String message) throws IOException {
+        log.info("broadcast");
+        wsService.broadcast(message);
+        log.info("SESSION POLL: " + WsSessionManager.SESSION_POOL);
+        return true;
     }
 }

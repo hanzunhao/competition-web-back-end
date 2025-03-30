@@ -1,30 +1,39 @@
 package cn.edu.usst.competitionweb.service.impl;
 
-import cn.edu.usst.competitionweb.dao.FlowerPotDao;
+import cn.edu.usst.competitionweb.mapper.FlowerPotMapper;
 import cn.edu.usst.competitionweb.pojo.FlowerPot;
 import cn.edu.usst.competitionweb.service.FlowerPotService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
 public class FlowerPotServiceImpl implements FlowerPotService {
     @Autowired
-    private FlowerPotDao flowerPotDao;
+    private FlowerPotMapper flowerPotMapper;
 
     @Override
-    public List<List<FlowerPot>> getAllFlowerPotForm() {
-        return flowerPotDao.getAllFlowerPotForm();
+    @Transactional
+    public List<FlowerPot> getFlowerPotByGreenHouseId(Integer greenHouseId) {
+        return flowerPotMapper.getFlowerPotByGreenHouseId(greenHouseId);
     }
 
     @Override
-    public void deleteFlowerPotByIdList(Integer greenHouseId,List<Integer> potIdList) {
-        flowerPotDao.deleteFlowerPotByIdList(greenHouseId,potIdList);
+    @Transactional
+    public void deleteFlowerPotByPotIdList(Integer greenHouseId, List<Integer> potIdList) {
+        // 1. 先删除关联的害虫记录
+        flowerPotMapper.deletePestsByPotIds(potIdList);
+
+        // 2. 再删除花盆记录
+        flowerPotMapper.deleteFlowerPotByPotIdList(greenHouseId, potIdList);
     }
 
     @Override
-    public void updateFlowerPotForm(List<List<FlowerPot>> flowerPotData) {
-        flowerPotDao.updateFlowerPotForm(flowerPotData);
+    @Transactional
+    public void updateFlowerPotByGreenHouseId(Integer greenHouseId, List<FlowerPot> flowerPotList) {
+        flowerPotMapper.updateFlowerPotByGreenHouseId(greenHouseId,flowerPotList);
     }
 }
+
