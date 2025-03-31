@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
@@ -107,10 +108,17 @@ public class DeepSeekController {
                                  new InputStreamReader(response.getEntity().getContent(), StandardCharsets.UTF_8))) {
                         StringBuilder aiResponse = new StringBuilder();
                         String line;
+
+                        emitter.onCompletion(() -> log.info("SSE连接正常完成"));
+                        emitter.onTimeout(() -> log.warn("SSE连接超时"));
+
                         while ((line = reader.readLine()) != null) {
                             if (line.startsWith("data: ")) {
                                 String jsonData = line.substring(6);
                                 if ("[DONE]".equals(jsonData)) {
+                                    emitter.send(SseEmitter.event()
+                                            .data("[DONE]")
+                                            .id(UUID.randomUUID().toString()));
                                     break; // 流式响应结束
                                 }
                                 JsonNode node = objectMapper.readTree(jsonData);
@@ -120,7 +128,9 @@ public class DeepSeekController {
                                         .path("content")
                                         .asText("");
                                 if (!content.isEmpty()) {
-                                    emitter.send(content); // 发送流式响应
+                                    emitter.send(SseEmitter.event()
+                                            .data(content)
+                                            .id(UUID.randomUUID().toString()));
                                     aiResponse.append(content); // 收集 AI 的回复
                                 }
                             }
@@ -140,7 +150,7 @@ public class DeepSeekController {
                     }
                 } catch (Exception e) {
                     log.error("处理 Deepseek 请求时发生错误", e);
-                    emitter.completeWithError(e); // 发生错误时结束流式响应
+                    emitter.completeWithError(new IOException("流式响应处理失败", e));
                 }
             } catch (Exception e) {
                 log.error("处理 Deepseek 请求时发生错误", e);
