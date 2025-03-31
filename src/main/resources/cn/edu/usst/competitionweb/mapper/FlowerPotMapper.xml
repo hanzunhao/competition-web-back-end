@@ -28,14 +28,18 @@
     </delete>
 
     <!-- 再删除花盆记录 -->
-    <delete id="deleteFlowerPotByPotIdList">
-        DELETE FROM FlowerPot
-        WHERE green_house_id = #{greenHouseId}
+    <update id="deleteFlowerPotByPotIdList">
+        UPDATE FlowerPot
+        SET
+        have_flower = false,
+        flower_type_id = NULL  <!-- 根据CHECK约束，当have_flower=false时flower_type_id必须为NULL -->
+        WHERE
+        green_house_id = #{greenHouseId}
         AND id IN
         <foreach item="potId" collection="potIdList" open="(" separator="," close=")">
             #{potId}
         </foreach>
-    </delete>
+    </update>
 
     <update id="updateFlowerPotByGreenHouseId">
         <foreach collection="flowerPotList" item="pot" separator=";">
