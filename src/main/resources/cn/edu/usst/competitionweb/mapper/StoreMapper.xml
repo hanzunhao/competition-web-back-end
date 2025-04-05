@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.usst.competitionweb.mapper.StoreMapper">
+
+    <resultMap id="storeResultMap" type="cn.edu.usst.competitionweb.pojo.Store">
+        <id property="id" column="id"/>
+        <result property="capacity" column="capacity"/>
+        <result property="totalFlowerNumber" column="totalFlowerNumber"/>
+        <result property="totalSellingPrice" column="totalSellingPrice"/>
+
+        <!-- 使用对应的类型处理器 -->
+        <result property="flowerNames" column="flowerNames"
+                typeHandler="cn.edu.usst.competitionweb.handler.StringToStringListTypeHandler"/>
+
+        <result property="flowerNumbers" column="flowerNumbers"
+                typeHandler="cn.edu.usst.competitionweb.handler.StringToIntegerListTypeHandler"/>
+
+        <result property="flowerSellingPrices" column="flowerSellingPrices"
+                typeHandler="cn.edu.usst.competitionweb.handler.StringToDoubleListTypeHandler"/>
+    </resultMap>
+
+    <!-- 获取所有仓库信息 -->
+    <select id="getAllStore" resultMap="storeResultMap">
+        SELECT
+            id,
+            capacity,
+            totalFlowerNumber,
+            totalSellingPrice,
+            flowerNames,
+            flowerNumbers,
+            flowerSellingPrices
+        FROM
+            StoreInventoryView
+    </select>
+
+    <!-- 根据ID获取仓库信息 -->
+    <select id="getStoreById" resultMap="storeResultMap">
+        SELECT
+            id,
+            capacity,
+            totalFlowerNumber,
+            totalSellingPrice,
+            flowerNames,
+            flowerNumbers,
+            flowerSellingPrices
+        FROM
+            StoreInventoryView
+        WHERE
+            id = #{id}
+    </select>
+
+</mapper>

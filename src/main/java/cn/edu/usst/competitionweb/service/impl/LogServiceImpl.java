@@ -5,6 +5,7 @@ import cn.edu.usst.competitionweb.pojo.Log;
 import cn.edu.usst.competitionweb.service.LogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -16,16 +17,19 @@ public class LogServiceImpl implements LogService {
 
 
     @Override
+    @Transactional
     public void delete(List<Integer> ids) {
         logMapper.delete(ids);
     }
 
     @Override
+    @Transactional
     public List<Log> selectAll() {
         return logMapper.selectAll();
     }
 
     @Override
+    @Transactional
     public void insert(Log log) {
         LocalDateTime now = LocalDateTime.now();
         log.setDate(now);
