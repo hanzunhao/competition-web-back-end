@@ -19,7 +19,7 @@ public class GreenHouseController {
     @Autowired
     private GreenHouseService greenHouseService;
 
-    @GetMapping("/home")
+    @GetMapping("/page_1")
     @Operation(summary = "获取所有温室信息", description = "返回系统中所有的温室数据列表")
     public Result getAllGreenHouse() {
         try {
@@ -29,7 +29,7 @@ public class GreenHouseController {
         }
     }
 
-    @GetMapping("/home/{id}")
+    @GetMapping("/page_1/{id}")
     @Operation(summary = "根据ID获取温室信息", description = "根据温室ID获取对应的温室详细信息")
     public Result getGreenHouseById(
             @Parameter(description = "温室ID", required = true)

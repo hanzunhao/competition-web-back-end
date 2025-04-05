@@ -22,7 +22,7 @@ public class FlowerPotController {
     private FlowerPotService flowerPotService;
 
     @Operation(summary = "根据温室ID获取花盆", description = "获取指定温室中的所有花盆信息")
-    @GetMapping("/home/{greenHouseId}/pot")
+    @GetMapping("/page_1/{greenHouseId}/pot")
     public Result getFlowerPotByGreenHouseId(
             @Parameter(description = "温室ID", required = true)
             @PathVariable Integer greenHouseId) {
@@ -34,7 +34,7 @@ public class FlowerPotController {
     }
 
     @Operation(summary = "删除花盆", description = "根据花盆ID列表从指定温室中删除多个花盆")
-    @DeleteMapping("/home/{greenHouseId}/pot")
+    @DeleteMapping("/page_1/{greenHouseId}/pot")
     public Result deleteFlowerPotByPotIdList(
             @Parameter(description = "温室ID", required = true)
             @PathVariable Integer greenHouseId,
@@ -49,7 +49,7 @@ public class FlowerPotController {
     }
 
     @Operation(summary = "更新花盆信息", description = "更新指定温室中的花盆信息列表")
-    @PutMapping("/home/{greenHouseId}/update")
+    @PutMapping("/page_1/{greenHouseId}/update")
     public Result updateFlowerPotByGreenHouseId(
             @Parameter(description = "温室ID", required = true)
             @PathVariable Integer greenHouseId,
