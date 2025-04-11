@@ -51,14 +51,14 @@ public class JasyptUtils {
     }
 
     public static void main(String[] args) {
-        String message = "";
+        String message = "d6084df1b2d743a8aa2e99e339a461cb";
         String password = "wangmaox";
 
         //一个同样的密码和秘钥，每次执行加密，密文都是不一样的。但是解密是没问题的。
         String jasyptEncrypt = stringEncryptor(password, message, true);
         System.out.println("密文:"+jasyptEncrypt);
 
-        String jasyptEncrypt1 = stringEncryptor(password, "8KJLyhQ5EoNU3UKCoUYOFJvBgX2dMkLLMjHBvxxQ4aotfsB+SwhSc7+F84CpUTKpv2ecDDLoOI3vKTtS8a/ZdQ==", false);
+        String jasyptEncrypt1 = stringEncryptor(password, "n2WQziIxyBibmuydZcImOd0no7NGr76oKrIBkaq+b8BkPVRj7pBrkjcXs0/6jxxmfhPyYJQLJxQ=", false);
         System.out.println("明文:"+jasyptEncrypt1);
     }
 }

@@ -1,12 +1,12 @@
 package cn.edu.usst.competitionweb.controller;
 
+import cn.edu.usst.competitionweb.pojo.GreenHouse;
+import cn.edu.usst.competitionweb.pojo.Result;
 import cn.edu.usst.competitionweb.service.impl.WsServiceImpl;
 import cn.edu.usst.competitionweb.utils.WsSessionManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.Map;
@@ -33,5 +33,25 @@ public class TestController {
         wsService.broadcast(message);
         log.info("SESSION POLL: " + WsSessionManager.SESSION_POOL);
         return true;
+    }
+
+    @PutMapping ("/test")
+    public Result testESP8266(@RequestBody GreenHouse greenHouse){
+        try{
+            log.info(String.format("ESP8266发送的数据：%s", greenHouse));
+            return Result.success("成功接收温室数据");
+        }catch (Exception e){
+            return Result.error(e.getMessage());
+        }
+    }
+
+    @GetMapping("/test")
+    public Result testESP8266(){
+        try{
+            log.info("ESP8266发送的GET");
+            return Result.success("成功接收温室数据");
+        }catch (Exception e){
+            return Result.error(e.getMessage());
+        }
     }
 }

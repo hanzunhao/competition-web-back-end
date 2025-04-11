@@ -19,6 +19,9 @@ public class GreenHouseController {
     @Autowired
     private GreenHouseService greenHouseService;
 
+//    @Autowired
+//    private HistoryDataService historyDataService;
+
     @GetMapping("/page_1")
     @Operation(summary = "获取所有温室信息", description = "返回系统中所有的温室数据列表")
     public Result getAllGreenHouse() {
@@ -48,6 +51,15 @@ public class GreenHouseController {
             @RequestBody GreenHouse greenHouse) {
         try {
             greenHouseService.updateGreenHouse(greenHouse);
+//            HistoryData historyData=new HistoryData();
+//            historyData.setGreenHouseId(greenHouse.getGreenHouseId());
+//            historyData.setTime(LocalDateTime.now());
+//            historyData.setIllumination(greenHouse.getIllumination());
+//            historyData.setAirHumidity(greenHouse.getAirHumidity());
+//            historyData.setAirTemperature(historyData.getAirTemperature());
+//            historyData.setMeanSoilHumidity(historyData.getMeanSoilHumidity());
+//            historyData.setMeanSoilTemperature(historyData.getMeanSoilTemperature());
+//            historyDataService.insertHistoryData(historyData);
             return Result.success();
         } catch (Exception e) {
             return Result.error(e.getMessage());

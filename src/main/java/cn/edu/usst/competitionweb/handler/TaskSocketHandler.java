@@ -1,7 +1,10 @@
 package cn.edu.usst.competitionweb.handler;
 
+import cn.edu.usst.competitionweb.pojo.Log;
+import cn.edu.usst.competitionweb.service.LogService;
 import cn.edu.usst.competitionweb.utils.WsSessionManager;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.socket.CloseStatus;
@@ -14,6 +17,10 @@ import java.time.LocalDateTime;
 @Component
 @Slf4j
 public class TaskSocketHandler extends AbstractWebSocketHandler {
+
+    @Autowired
+    private LogService logService;
+
     @Override
     public void afterConnectionEstablished(WebSocketSession session) {
         log.info("建立ws连接");
@@ -22,13 +29,19 @@ public class TaskSocketHandler extends AbstractWebSocketHandler {
 
     @Override
     @Transactional
-    public void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
+    public void handleTextMessage(WebSocketSession session, TextMessage message) {
         String payload = message.getPayload();
         log.info("server 接收到消息 " + payload);
-        session.sendMessage(new TextMessage("发送的消息 " + payload + "，发送时间:" + LocalDateTime.now()));
 
-        // TODO 反序列化
 
+        if(payload.split(":")[0].equals("over")){
+            Log completeLog=new Log();
+            completeLog.setDate(LocalDateTime.now());
+            completeLog.setName(payload.split(":")[1]);
+            completeLog.setIsCompleted(true);
+            log.info(""+completeLog);
+            logService.insert(completeLog);
+        }
     }
 
     @Override
