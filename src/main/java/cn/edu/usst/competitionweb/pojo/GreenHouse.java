@@ -1,5 +1,6 @@
 package cn.edu.usst.competitionweb.pojo;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,6 +13,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Schema(name = "GreenHouse", description = "温室实时监控数据（春季管理特别版）")
 public class GreenHouse {
     private Integer greenHouseId;
     private Integer storeId;

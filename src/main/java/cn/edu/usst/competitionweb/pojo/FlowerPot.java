@@ -1,5 +1,6 @@
 package cn.edu.usst.competitionweb.pojo;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,6 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Schema(name = "FlowerPot", description = "花盆实时监测数据")
 public class FlowerPot {
     private Integer id;
     private Double soilTemperature;

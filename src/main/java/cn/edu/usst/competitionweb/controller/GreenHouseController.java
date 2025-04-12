@@ -50,6 +50,7 @@ public class GreenHouseController {
             @Parameter(description = "温室信息对象", required = true)
             @RequestBody GreenHouse greenHouse) {
         try {
+            log.info(String.format("ESP8266发送的数据：%s", greenHouse));
             greenHouseService.updateGreenHouse(greenHouse);
 //            HistoryData historyData=new HistoryData();
 //            historyData.setGreenHouseId(greenHouse.getGreenHouseId());

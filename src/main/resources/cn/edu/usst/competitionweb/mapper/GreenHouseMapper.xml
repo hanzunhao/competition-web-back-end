@@ -56,7 +56,7 @@
     <update id="updateGreenHouse" parameterType="cn.edu.usst.competitionweb.pojo.GreenHouse">
         UPDATE GreenHouse
         <set>
-            <if test="flowerName != null">
+            <if test="flowerName != null and flowerName != ''">
                 flower_type_id = (SELECT id FROM FlowerType WHERE flower_name = #{flowerName}),
             </if>
             <if test="illumination != null">

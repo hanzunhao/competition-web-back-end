@@ -1,5 +1,8 @@
 package cn.edu.usst.competitionweb.pojo;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
+@Schema(name = "Result", description = "标准API响应格式")
 public class Result {
     //响应码，1成功，0失败
     private Integer code;

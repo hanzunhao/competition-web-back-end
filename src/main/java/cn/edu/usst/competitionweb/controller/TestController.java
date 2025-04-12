@@ -44,14 +44,4 @@ public class TestController {
             return Result.error(e.getMessage());
         }
     }
-
-    @GetMapping("/test")
-    public Result testESP8266(){
-        try{
-            log.info("ESP8266发送的GET");
-            return Result.success("成功接收温室数据");
-        }catch (Exception e){
-            return Result.error(e.getMessage());
-        }
-    }
 }
