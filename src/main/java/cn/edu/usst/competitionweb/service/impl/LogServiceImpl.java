@@ -23,7 +23,6 @@ public class LogServiceImpl implements LogService {
     }
 
     @Override
-    @Transactional
     public List<Log> selectAll() {
         return logMapper.selectAll();
     }

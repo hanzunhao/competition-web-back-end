@@ -5,16 +5,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Schema(name = "Log", description = "操作日志记录")
-public class Log {
+@Schema(name = "Task", description = "任务信息实体")
+public class Task {
     private Integer id;
-    private LocalDateTime date;
     private String name;
-    private Boolean isCompleted;
-    private Integer taskId;
+    private Integer weekDay;
+    private LocalTime startTime;
 }

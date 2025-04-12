@@ -15,7 +15,6 @@ public class GreenHouseServiceImpl implements GreenHouseService {
     private GreenHouseMapper greenHouseMapper;
 
     @Override
-    @Transactional
     public List<GreenHouse> getAllGreenHouse() {
         return greenHouseMapper.getAllGreenHouse();
     }
@@ -27,7 +26,6 @@ public class GreenHouseServiceImpl implements GreenHouseService {
     }
 
     @Override
-    @Transactional
     public GreenHouse getGreenHouseById(Integer id) {
         return greenHouseMapper.getGreenHouseById(id);
     }

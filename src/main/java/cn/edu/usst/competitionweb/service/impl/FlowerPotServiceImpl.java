@@ -15,7 +15,6 @@ public class FlowerPotServiceImpl implements FlowerPotService {
     private FlowerPotMapper flowerPotMapper;
 
     @Override
-    @Transactional
     public List<FlowerPot> getFlowerPotByGreenHouseId(Integer greenHouseId) {
         return flowerPotMapper.getFlowerPotByGreenHouseId(greenHouseId);
     }

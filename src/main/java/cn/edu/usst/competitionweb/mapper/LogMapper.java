@@ -14,6 +14,6 @@ public interface LogMapper {
 
     void delete(List<Integer> ids);
 
-    @Insert("INSERT INTO competition_web.log (date, name, is_completed) VALUES (#{date}, #{name}, #{isCompleted})")
+    @Insert("INSERT INTO competition_web.log (date, name, is_completed,task_id) VALUES (#{date}, #{name}, #{isCompleted},#{taskId})")
     void insert(Log log);
 }

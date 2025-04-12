@@ -17,7 +17,6 @@ public class HistoryDataServiceImpl implements HistoryDataService {
     private HistoryDataMapper historyDataMapper;
 
     @Override
-    @Transactional
     public List<HistoryData> selectByGreenHouseIdAndTimeRange(Integer greenHouseId, LocalDateTime startTime, LocalDateTime endTime) {
         return historyDataMapper.selectByGreenHouseIdAndTimeRange(greenHouseId, startTime, endTime);
     }
