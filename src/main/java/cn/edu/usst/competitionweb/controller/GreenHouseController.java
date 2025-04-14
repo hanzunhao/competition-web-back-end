@@ -19,9 +19,6 @@ public class GreenHouseController {
     @Autowired
     private GreenHouseService greenHouseService;
 
-//    @Autowired
-//    private HistoryDataService historyDataService;
-
     @GetMapping("/page_1")
     @Operation(summary = "获取所有温室信息", description = "返回系统中所有的温室数据列表")
     public Result getAllGreenHouse() {

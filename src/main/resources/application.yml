@@ -20,8 +20,9 @@ mybatis:
 
 logging:
   level:
-    org.springframework.jdbc.support.JdbcTransactionManager: debug
-
+    org.springframework.jdbc: error  # 关闭spring jdbc相关日志
+    org.springframework.transaction: error  # 关闭事务相关日志
+    org.mybatis: error  # 关闭mybatis日志
 # 启动项目后，访问 http://localhost:8080/swagger-ui/index.html 查看 API 文档
 # 启动项目后，访问 http://localhost:8080/v3/api-docs 查看 API json
 springdoc:

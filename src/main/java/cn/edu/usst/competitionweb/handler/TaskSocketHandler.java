@@ -1,7 +1,10 @@
 package cn.edu.usst.competitionweb.handler;
 
+import cn.edu.usst.competitionweb.pojo.FlowerPot;
 import cn.edu.usst.competitionweb.pojo.Log;
+import cn.edu.usst.competitionweb.service.FlowerPotService;
 import cn.edu.usst.competitionweb.service.LogService;
+import cn.edu.usst.competitionweb.service.TaskService;
 import cn.edu.usst.competitionweb.utils.WsSessionManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +16,9 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.AbstractWebSocketHandler;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 @Component
 @Slf4j
@@ -20,6 +26,12 @@ public class TaskSocketHandler extends AbstractWebSocketHandler {
 
     @Autowired
     private LogService logService;
+
+    @Autowired
+    private TaskService taskService;
+
+    @Autowired
+    private FlowerPotService flowerPotService;
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) {
@@ -33,14 +45,48 @@ public class TaskSocketHandler extends AbstractWebSocketHandler {
         String payload = message.getPayload();
         log.info("server 接收到消息 " + payload);
 
+        // 是否是心跳信息
+        boolean isHeartBeat = payload.equals("-");
 
-        if(payload.split(":")[0].equals("over")){
-            Log completeLog=new Log();
-            completeLog.setDate(LocalDateTime.now());
-            completeLog.setName(payload.split(":")[1]);
-            completeLog.setIsCompleted(true);
-            log.info(""+completeLog);
-            logService.insert(completeLog);
+        // 如果不是心跳
+        if (!isHeartBeat && payload.split(":").length > 1) {
+            String head = payload.split(":")[0];
+            String body = payload.split(":")[1];
+
+            if (body.equals("over")) {
+                // 插入任务完成日志
+                Log completeLog = new Log();
+                completeLog.setDate(LocalDateTime.now());
+                completeLog.setName(payload.split(":")[0]);
+                completeLog.setIsCompleted(true);
+                completeLog.setTaskId(taskService.selectTaskIdByName(completeLog.getName()));
+                log.info("" + completeLog);
+                logService.insert(completeLog);
+            } else if (head.equals("move")) {
+                // 根据传入的id列表删除花盆
+                Integer greenHouseId = 1;
+                String[] idStrList = body.split(",");
+                List<Integer> idList = new ArrayList<>();
+                for (String id : idStrList) {
+                    idList.add(Integer.parseInt(id.trim()));
+                }
+                log.info("" + idList);
+                flowerPotService.deleteFlowerPotByPotIdList(greenHouseId, idList);
+            } else if (head.equals("detect")) {
+                // 更新花盆信息
+                Integer greenHouseId = 1;
+                String[] data = body.split(",");
+                List<FlowerPot> flowerPotList = new ArrayList<>();
+                for (int i = 0; i < data.length; i += 2) {
+                    FlowerPot flowerPot = new FlowerPot();
+                    flowerPot.setId(Integer.parseInt(data[i].trim()));
+                    flowerPot.setSoilTemperature(26.0 + new Random().nextDouble() * 2 - 1);
+                    flowerPot.setSoilHumidity(Double.parseDouble(data[i + 1].trim()));
+                    flowerPotList.add(flowerPot);
+                }
+                log.info("" + flowerPotList);
+                flowerPotService.updateFlowerPotByGreenHouseId(greenHouseId, flowerPotList);
+            }
         }
     }
 

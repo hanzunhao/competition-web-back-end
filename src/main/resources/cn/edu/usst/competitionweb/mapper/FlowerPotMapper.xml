@@ -47,9 +47,7 @@
             FlowerPot
             SET
             soil_temperature = #{pot.soilTemperature},
-            soil_humidity = #{pot.soilHumidity},
-            have_flower = #{pot.haveFlower},
-            flower_type_id = #{pot.flowerTypeId}
+            soil_humidity = #{pot.soilHumidity}
             WHERE
             id = #{pot.id}
             AND green_house_id = #{greenHouseId}

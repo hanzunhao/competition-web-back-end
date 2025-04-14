@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalTime;
 import java.util.List;
 
 @Service
@@ -21,14 +22,14 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public List<Task> selectAllTask() {
-        return taskMapper.selectAllTask();
+    public List<Task> selectAllWeeklyTask() {
+        return taskMapper.selectAllWeeklyTask();
     }
 
     @Override
     @Transactional
-    public void deleteTaskById(Integer id) {
-        taskMapper.deleteTaskById(id);
+    public void deleteTask(String name, Integer weekDay, LocalTime startTime) {
+        taskMapper.deleteTask(name,weekDay,startTime);
     }
 
     @Override
