@@ -9,7 +9,6 @@ import cn.edu.usst.competitionweb.utils.WsSessionManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
@@ -17,6 +16,7 @@ import org.springframework.web.socket.handler.AbstractWebSocketHandler;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -39,8 +39,8 @@ public class TaskSocketHandler extends AbstractWebSocketHandler {
         WsSessionManager.add(session.getId(), session);
     }
 
+    //todo 添加有关设备状态信息的交互
     @Override
-    @Transactional
     public void handleTextMessage(WebSocketSession session, TextMessage message) {
         String payload = message.getPayload();
         log.info("server 接收到消息 " + payload);
@@ -53,7 +53,11 @@ public class TaskSocketHandler extends AbstractWebSocketHandler {
             String head = payload.split(":")[0];
             String body = payload.split(":")[1];
 
+            log.info("head: " + head + " body: " + body);
+
             if (body.equals("over")) {
+                log.info("enter over!!!!!!!!!!!!");
+
                 // 插入任务完成日志
                 Log completeLog = new Log();
                 completeLog.setDate(LocalDateTime.now());
@@ -63,19 +67,25 @@ public class TaskSocketHandler extends AbstractWebSocketHandler {
                 log.info("" + completeLog);
                 logService.insert(completeLog);
             } else if (head.equals("move")) {
+                log.info("enter move!!!!!!!!!!!!");
+
                 // 根据传入的id列表删除花盆
                 Integer greenHouseId = 1;
                 String[] idStrList = body.split(",");
+                log.info("idStrList" + Arrays.toString(idStrList));
                 List<Integer> idList = new ArrayList<>();
                 for (String id : idStrList) {
                     idList.add(Integer.parseInt(id.trim()));
                 }
                 log.info("" + idList);
                 flowerPotService.deleteFlowerPotByPotIdList(greenHouseId, idList);
-            } else if (head.equals("detect")) {
+            } else if (head.equals("update")) {
+                log.info("enter update!!!!!!!!!!!!");
+
                 // 更新花盆信息
                 Integer greenHouseId = 1;
                 String[] data = body.split(",");
+                log.info("data" + Arrays.toString(data));
                 List<FlowerPot> flowerPotList = new ArrayList<>();
                 for (int i = 0; i < data.length; i += 2) {
                     FlowerPot flowerPot = new FlowerPot();
@@ -86,6 +96,21 @@ public class TaskSocketHandler extends AbstractWebSocketHandler {
                 }
                 log.info("" + flowerPotList);
                 flowerPotService.updateFlowerPotByGreenHouseId(greenHouseId, flowerPotList);
+            } else if (head.equals("detect")) {
+            log.info("enter detect!!!!!!!!!!!!");
+
+                // 更新花盆信息
+                Integer greenHouseId = 1;
+                String[] data = body.split(",");
+                List<FlowerPot> flowerPotList = new ArrayList<>();
+                for (int i = 0; i < data.length; i += 2) {
+                    FlowerPot flowerPot = new FlowerPot();
+                    flowerPot.setId(Integer.parseInt(data[i].trim()));
+                    flowerPot.setPestName(data[i + 1].trim());
+                    flowerPotList.add(flowerPot);
+                }
+                log.info("" + flowerPotList);
+                flowerPotService.updateFlowerPotPests(flowerPotList);
             }
         }
     }

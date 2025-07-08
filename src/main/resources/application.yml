@@ -4,9 +4,13 @@ spring:
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/competition_web
+    url: jdbc:mysql://localhost:3306/competition_web?allowMultiQueries=true&useSSL=false&serverTimezone=Asia/Shanghai
     username: root
-    password: "111111"  # 如果密码是纯数字，建议用引号包裹
+    password: "111111"
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 5
 
   servlet:
     multipart:
@@ -17,6 +21,7 @@ mybatis:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     map-underscore-to-camel-case: true
+
 
 logging:
   level:
@@ -41,3 +46,4 @@ jasypt:
   encryptor:
     password: wangmaox  #加密的密钥，自定义即可，必填项，与加密密文时的密钥保持一致.
     algorithm: PBEWithMD5AndDES  #指定解密算法
+

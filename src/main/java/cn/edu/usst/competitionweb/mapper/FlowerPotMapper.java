@@ -11,4 +11,6 @@ public interface FlowerPotMapper {
     void deletePestsByPotIds(List<Integer> potIdList);
     void deleteFlowerPotByPotIdList(Integer greenHouseId,List<Integer> potIdList);
     void updateFlowerPotByGreenHouseId(Integer greenHouseId,List<FlowerPot> flowerPotList);
+    void deletePestsByPotId(Integer potId);
+    void insertPestForPot(Integer potId,String pestName);
 }

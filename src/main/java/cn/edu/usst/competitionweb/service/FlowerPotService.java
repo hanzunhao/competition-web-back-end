@@ -10,5 +10,7 @@ public interface FlowerPotService {
     void deleteFlowerPotByPotIdList(Integer greenHouseId, List<Integer> potIdList);
 
     void updateFlowerPotByGreenHouseId(Integer greenHouseId,List<FlowerPot> flowerPotList);
+
+    void updateFlowerPotPests(List<FlowerPot> flowerPotList);
 }
 

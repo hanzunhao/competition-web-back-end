@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Schema(name = "GreenHouse", description = "温室实时监控数据（春季管理特别版）")
+@Schema(name = "GreenHouse", description = "温室实时监控数据")
 public class GreenHouse {
     private Integer greenHouseId;
     private Integer storeId;

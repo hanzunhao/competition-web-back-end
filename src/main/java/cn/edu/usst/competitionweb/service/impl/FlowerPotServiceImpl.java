@@ -32,7 +32,16 @@ public class FlowerPotServiceImpl implements FlowerPotService {
     @Override
     @Transactional
     public void updateFlowerPotByGreenHouseId(Integer greenHouseId, List<FlowerPot> flowerPotList) {
-        flowerPotMapper.updateFlowerPotByGreenHouseId(greenHouseId,flowerPotList);
+        flowerPotMapper.updateFlowerPotByGreenHouseId(greenHouseId, flowerPotList);
+    }
+
+    @Override
+    @Transactional
+    public void updateFlowerPotPests(List<FlowerPot> flowerPotList) {
+        for (FlowerPot pot : flowerPotList) {
+            flowerPotMapper.deletePestsByPotId(pot.getId());
+            if (!pot.getPestName().equals("正常花")) flowerPotMapper.insertPestForPot(pot.getId(), pot.getPestName());
+        }
     }
 }
 

@@ -60,7 +60,7 @@ public class DeepSeekController {
             @Parameter(description = "用户的问题", required = true) @RequestParam String question) {
         System.out.println("Base URL: " + API_URL);
 
-        // 假设用户 ID 为 "1"，实际应用中可以从 token 中解析出用户 ID
+        // 假设用户 ID 为 "1"
         String userId = "1";
 
         // 创建一个 SseEmitter 对象，用于流式传输响应

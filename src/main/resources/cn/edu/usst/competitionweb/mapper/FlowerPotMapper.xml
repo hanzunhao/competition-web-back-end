@@ -43,14 +43,30 @@
 
     <update id="updateFlowerPotByGreenHouseId">
         <foreach collection="flowerPotList" item="pot" separator=";">
-            UPDATE
-            FlowerPot
-            SET
-            soil_temperature = #{pot.soilTemperature},
-            soil_humidity = #{pot.soilHumidity}
-            WHERE
-            id = #{pot.id}
+            UPDATE FlowerPot
+            <set>
+                <if test="pot.soilTemperature != null">
+                    soil_temperature = #{pot.soilTemperature},
+                </if>
+                <if test="pot.soilHumidity != null">
+                    soil_humidity = #{pot.soilHumidity},
+                </if>
+            </set>
+            WHERE id = #{pot.id}
             AND green_house_id = #{greenHouseId}
         </foreach>
     </update>
+
+    <update id="deletePestsByPotId">
+        DELETE
+        FROM FlowerPotPest
+        WHERE flower_pot_id = #{potId}
+    </update>
+
+    <insert id="insertPestForPot">
+        <if test="#{pestName} != null">
+            INSERT INTO FlowerPotPest (flower_pot_id, pest_id)
+            SELECT #{potId}, id FROM Pest WHERE name = #{pestName}
+        </if>
+    </insert>
 </mapper>
