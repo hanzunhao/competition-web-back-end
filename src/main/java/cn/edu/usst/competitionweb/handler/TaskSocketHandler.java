@@ -2,6 +2,7 @@ package cn.edu.usst.competitionweb.handler;
 
 import cn.edu.usst.competitionweb.pojo.FlowerPot;
 import cn.edu.usst.competitionweb.pojo.Log;
+import cn.edu.usst.competitionweb.service.DeviceService;
 import cn.edu.usst.competitionweb.service.FlowerPotService;
 import cn.edu.usst.competitionweb.service.LogService;
 import cn.edu.usst.competitionweb.service.TaskService;
@@ -32,6 +33,9 @@ public class TaskSocketHandler extends AbstractWebSocketHandler {
 
     @Autowired
     private FlowerPotService flowerPotService;
+
+    @Autowired
+    private DeviceService deviceService;
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) {
@@ -97,7 +101,7 @@ public class TaskSocketHandler extends AbstractWebSocketHandler {
                 log.info("" + flowerPotList);
                 flowerPotService.updateFlowerPotByGreenHouseId(greenHouseId, flowerPotList);
             } else if (head.equals("detect")) {
-            log.info("enter detect!!!!!!!!!!!!");
+                log.info("enter detect!!!!!!!!!!!!");
 
                 // 更新花盆信息
                 Integer greenHouseId = 1;
@@ -111,6 +115,19 @@ public class TaskSocketHandler extends AbstractWebSocketHandler {
                 }
                 log.info("" + flowerPotList);
                 flowerPotService.updateFlowerPotPests(flowerPotList);
+            } else if (head.equals("car")) {
+                log.info("enter car!!!!!!!!!!!!");
+
+                // 信息格式为 car:id,stateCode,power
+
+                // 更新花盆信息
+                String[] data = body.split(",");
+                int id = Integer.parseInt(data[0]);
+                int stateCode = Integer.parseInt(data[1]);
+                int power = Integer.parseInt(data[2]);
+
+                log.info("update car:" + id + "," + stateCode + "," + power);
+                deviceService.updateCarStateById(id, stateCode, power);
             }
         }
     }

@@ -19,8 +19,6 @@ import java.util.List;
 @RequestMapping("/history_data")
 @Tag(name = "温室历史数据管理", description = "提供温室历史数据的查询和新增功能")
 public class HistoryDataController {
-    // TODO 实现温室历史数据随传感器传输数据新增的功能
-
     @Autowired
     private HistoryDataService historyDataService;
 

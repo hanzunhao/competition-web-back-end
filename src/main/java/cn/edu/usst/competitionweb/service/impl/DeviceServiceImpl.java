@@ -13,12 +13,22 @@ public class DeviceServiceImpl implements DeviceService {
     private DeviceMapper deviceMapper;
 
     @Transactional
-    public Device getCarStateById(int id){
+    public Device getCarStateById(int id) {
         return deviceMapper.getCarStateById(id);
     }
 
     @Transactional
-    public Device getSensorStateById(int id){
+    public Device getSensorStateById(int id) {
         return deviceMapper.getSensorStateById(id);
+    }
+
+    @Transactional
+    public void updateCarStateById(int id, int stateCode, int power) {
+        deviceMapper.updateCarStateById(id, stateCode, power);
+    }
+
+    @Transactional
+    public void updateSensorStateById(int id, int stateCode, int power) {
+        deviceMapper.updateSensorStateById(id, stateCode, power);
     }
 }
